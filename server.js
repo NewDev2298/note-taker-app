@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { readFromFile } = require('./db/db.json');
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -18,11 +19,12 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 
 });
 
 app.post('/api/notes', (req, res) => {
-
+  console.info(`${req.method} new note saved`);
 });
 
 app.delete('/api/notes/:id', (req, res) => {

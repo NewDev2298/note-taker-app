@@ -21,17 +21,20 @@ app.get('/notes', (req, res) => {
 
 // GET Route returns saved notes
 app.get('/api/notes', (req, res) => {
-  // readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
-  readFromFile = () => {
-    fs.readFile(destination, JSON.stringify('./db/db.json','utf8', function(err, data)))
-  }
+
+  fs.readFile('./db/db.json', 'utf8', function(err, data){
+  return res.json(data);
+});
 });
 
 // POST Route saves new notes
 app.post('/api/notes', (req, res) => {
   console.info(`${req.method} new note saved`);
 
+  
+
   const newNote = req.body;
+  readAndAppend(newNote, './db/db.json');
 
 
 });
